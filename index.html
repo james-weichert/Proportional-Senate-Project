@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Proportional Representation Project</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+
+	<style type="text/css">
+		body {
+			font-family: 'Lexend Deca', sans-serif;
+			color: #444;
+		}
+		#header {
+			width: 100%;
+			text-align: center;
+			padding-top: 4vh;
+			padding-bottom: 2vh;
+		}
+
+		#nav {
+			
+
+			width: 60%;
+			margin-left: auto;
+			margin-right: auto;
+
+			padding-top: 2vh;
+
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+			grid-template-rows: 1fr;
+
+			    grid-template-areas: 
+			        "abstract intro eda exp tests conclusions about";
+
+
+			text-align: center;
+
+		}
+
+		#nav div {
+
+			position: relative;
+			text-decoration: none;
+			color: #444;
+
+			padding-bottom: 3vh;
+
+		}
+		#nav div:hover {
+			cursor: pointer;
+		}
+		#nav div:after {
+			background: none repeat scroll 0 0 transparent;
+			 bottom: 0;
+			 content: "";
+			 display: block;
+			 height: 0.7vh;
+			 left: 50%;
+			 position: absolute;
+			 background: #444;
+			 transition: width 0.3s ease 0s, left 0.3s ease 0s;
+			 -webkit-transition: width 0.3s ease 0s, left 0.3s ease 0s;
+			 width: 0;
+			 border-radius: 0.2vw;
+
+		}
+		#nav div:hover:after {
+			width: 60%;
+			left: 20%;
+		}
+
+		#nav1 {
+			color: #981d2b !important;
+		}
+		#nav2 {
+			color: #e4744f !important;
+			grid-area: intro;
+		}
+		#nav3 {
+			color: #f2b06e !important;
+			grid-area: eda;
+		}
+		#nav4 {
+			color: #F0CC4F !important;
+			grid-area: exp;
+		}
+		#nav5 {
+			color: #b4d8e7 !important;
+			grid-area: tests;
+		}
+		#nav6 {
+			color: #7faccd !important;
+			grid-area: conclusions;
+		}
+		#nav7 {
+			color: #30398f !important;
+			grid-area: about;
+		}
+
+		#nav1:after {
+			background: #981d2b !important;
+			grid-area: abstract;
+		}
+		#nav2:after {
+			background: #e4744f !important;
+			grid-area: intro;
+		}
+		#nav3:after {
+			background: #f2b06e !important;
+			grid-area: eda;
+		}
+		#nav4:after {
+			background: #F0CC4F !important;
+			grid-area: exp;
+		}
+		#nav5:after {
+			background: #b4d8e7 !important;
+			grid-area: tests;
+		}
+		#nav6:after {
+			background: #7faccd !important;
+			grid-area: conclusions;
+		}
+		#nav7:after {
+			background: #30398f !important;
+			grid-area: about;
+		}
+
+		.heading {
+		}
+
+		#abstract {
+			color: #981d2b;
+		}
+		#intro {
+			color: #e4744f;
+		}
+		#eda {
+			color: #f2b06e;
+		}
+		#experiments {
+			color: #F0CC4F;
+		}
+		#tests {
+			color: #b4d8e7;
+		}
+		#conclusions {
+			color: #7faccd;
+		}
+		#about {
+			color: #30398f;
+		}
+
+		.blue {
+			color: #30398f;	
+		}
+		.red {
+			color: #981d2b;
+		}
+
+		#content {
+			width: 70%;
+
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.code {
+			font-family: monospace;
+			width: 70%;
+			border: 0.1vw solid #AAA;
+			margin-left: auto;
+			margin-right: auto;
+			background-color: #F2F2F2;
+			padding-left: 1vw;
+			padding-right: 1vw;
+			padding-top: 0.6vh;
+			padding-bottom: 0.6vh;
+
+			border-radius: 0.3vw;
+			margin-bottom: 2vh;
+			margin-top: 1vh;
+
+		}
+		.code {
+			line-height: 110%;
+		}
+		.py {
+			color: green;
+			font-weight: bold;
+		}
+		.str {
+			color: #B50834;
+		}
+		.math {
+			color: #9B43E5;
+		}
+		.output {
+			width: 65%;
+			margin-left: auto;
+			margin-right: auto;
+			font-family: monospace;
+		}
+		.output h4 {
+			color: green;
+		}
+
+		.output table {
+			width: 80%;
+			margin-left: auto;
+			margin-right: auto;
+
+			table-layout: fixed;
+
+			border: 0.1vw solid #555;
+			border-collapse: collapse;
+			border-spacing: 0;
+			border-radius: 0.3vw ;
+		}
+		.output thead {
+			border-radius: 0.3vw;
+		}
+		.output thead {
+			background-color: #CCC;
+		}
+		.output tr:nth-child(even) {
+			background-color: #EEE;
+		}
+		.output td {
+			padding-bottom: 1vh;
+			padding-top: 1vh;
+			padding-left: 1vw;
+			padding-right: 1vw;
+		}
+
+		.text {
+			width: 70%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		#footer {
+			text-align: center;
+			padding-bottom: 3vh;
+			padding-top: 2vh;
+		}
+
+		a {
+			text-decoration: none;
+			color: inherit;
+		}
+
+		.ind {
+			margin-left: 10%;
+		}
+		.bl {
+			color: #0000FF;
+		}
+
+		@media (max-aspect-ratio: 8/7) {
+			#nav {
+
+				grid-template-columns: 1fr 1fr 1fr;
+				grid-template-rows: 1fr 1fr 1fr;
+
+				    grid-template-areas: 
+				        "abstact intro eda"
+				        "exp tests conclusions"
+				        ". about .";
+
+
+				text-align: center;
+
+				justify-items: center;
+				align-items: center;
+
+				grid-row-gap: 3vh;
+			}
+			.output {
+				width: 100%;
+			}
+			.output table {
+				width: 100%;
+			}
+
+		}
+
+		@media (max-aspect-ratio: 6/7) {
+			.text {
+				width: 100%;
+			}
+			.code {
+				width: 100%;
+			}
+			
+
+		}
+	</style>
+</head>
+<body>
+
+	<div id="header">
+		<h1>Proportional Representation Project</h1>
+		<h3>James Weichert</h3>
+
+		<div id="nav">
+			<div id="nav1"><a href="#abstract">Abstract</a></div>
+			<div id="nav2"><a href="#intro">Introduction</a></div>
+			<div id="nav3"><a href="#eda">EDA</a></div>
+			<div id="nav4"><a href="#experiments">Experiments</a></div>
+			<div id="nav5"><a href="#tests">Tests</a></div>
+			<div id="nav6"><a href="#conclusions">Conclusions</a></div>
+			<div id="nav7"><a href="#about">About</a></div>
+		</div>
+	</div>
+
+	<div id="content">
+
+
+		<h2 class="heading" id="abstract">Abstract</h2>
+		<br />
+
+			<div class="text">
+				<p>What I found - Why it's useful.</p>
+			</div>
+
+		<br />
+		<h2 class="heading" id="intro">Introduction</h2>
+		<br />
+
+			<div class="text">
+				<p>Existing System - EC, House, Senate. Representation Disparaties. Implications. Why keep the Senate at all?</p>
+			</div>
+
+		<br />
+		<h2 class="heading" id="eda">Exploratory Data Analysis</h2>
+		<br />
+
+			<div class="code">
+				<p><span class="py">import</span> numpy <span class="py">as</span> np</p>
+				<p><span class="py">import</span> pandas <span class="py">as</span> pd</p>
+				<br />
+				<p><span class="py">from</span> matplotlib <span class="py">import</span> pyplot <span class="py">as</span> plt</p>
+			</div>
+			<div class="code">
+				<p>state_pop <span class="math">=</span> pd.read_csv(<span class="str">"US_State_Population_Data.csv"</span>)</p>
+				<p>state_pop</p>
+			</div>
+			<div class="output">
+				<h4>Out:</h4>
+				<table>
+					<thead>
+						<tr>
+							<td></td>
+							<td>State</td>
+							<td>Population (2018)</td>
+							<td>U.S. House Seats</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>0</td>
+							<td>AL</td>
+							<td>4887871</td>
+							<td>7</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>AK</td>
+							<td>737438</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>AZ</td>
+							<td>7171646</td>
+							<td>9</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>AR</td>
+							<td>3013825</td>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>CA</td>
+							<td>39557045</td>
+							<td>53</td>
+						</tr>
+						<tr>
+							<td>...</td>
+							<td>...</td>
+							<td>...</td>
+							<td>...</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+
+		<br />
+		<h2 class="heading" id="experiments">Experiments</h2>
+		<br />
+
+			<div class="text">
+				<h3>Senate Allocation Methods</h3>
+				<p>Rather than reforming the Electoral College itself, I attempt to reallocate seats in the U.S. Senate (thereby eliminating the two-seat-per-state allocation). Detailed below are three methods of Senate seat allocation, each of which attempts to tackle the problem of underrepresentation in a slightly different manner.</p>
+			</div>
+
+			<div class="text">
+				<h4>Method 1</h4>
+				<p>Establish a single-senator baseline, then allocate the remaining seats to states with the highest (remaining) unrepresented population.</p>
+
+				<br />
+
+				<div class="code">
+					<p><span class="py">def</span> <span class="bl">senate_allocation_method_1</span>(senate_data):</p>
+					<p></p>
+					
+					<div class="ind">
+						<p>states <span class="math">=</span> senate_data.copy()</p>
+						<p>us_pop <span class="math">=</span> states['Population (2018)'].sum()</p>
+						<p>senators <span class="math">=</span> 100</p>
+
+						<br />
+						
+						<p>std_ratio <span class="math">=</span> np.round(us_pop/senators)</p>
+						    
+						<p>#Give all states at least 1 senator</p>
+						<p>states['Senators'] <span class="math">+=</span> 1</p>
+						<p>states['Rem_Pop'] <span class="math">=</span> states['Rem_Pop'].apply(<span class="py">lambda</span> x: max(x - std_ratio, 0))</p>
+						    
+						<p>senators <span class="math">=</span> senators - 50</p>
+						    
+						<p>rounds <span class="math">=</span> 1</p>
+						<p>flag <span class="math">=</span> <span class="py">False</span></p>
+						    
+						<p>num_eligible_states <span class="math">=</span> states[states['Rem_Pop'] <span class="math">>=</span> std_ratio]['Rem_Pop'].count()</p>
+						    
+						<p><span class="py">while</span> (num_eligible_states <span class="math">></span> 0):</p>
+						    <div class="ind">
+						    	<p>states.loc[states['Rem_Pop'] >= std_ratio, 'Senators'] += 1</p>
+						        <p>states.loc[states['Rem_Pop'] >= std_ratio, 'Rem_Pop'] = states.loc[states['Rem_Pop'] >= std_ratio, 'Rem_Pop'] - std_ratio</p>
+						        <p>senators = senators - num_eligible_states</p>
+						        <p>num_eligible_states = states[states['Rem_Pop'] >= std_ratio]['Rem_Pop'].count()</p>
+						        
+						        <p>#print(senators)</p>
+						        <p>#print(num_eligible_states)</p>
+						        <p>#print("--")</p>
+						        
+						        <p>rounds += 1</p>
+						    </div>
+						                    
+						<p>print('Remaining Senators: ' + str(senators))</p>
+						<p>print('Remaining Eligible States: ' + str(num_eligible_states))</p>
+						    
+						<p>unrep_pop = states['Rem_Pop'].sum()</p>
+						    
+						<p>print(unrep_pop)</p>
+						            
+						            
+						<p><span class="py">return</span> states</p>
+					</div>
+					
+
+						
+				</div>
+
+				<br />
+				<h4>Method 2</h4>
+				<p>After allocating a single seat to each state, perform a "one vs. rest" process pursuant to the following guideline:</p>
+				<ul>
+					<li>The state with the highest 'population per senator' value is allocated an additional Senate seat until that state's value is no longer the highest.</li>
+				</ul>
+				<br />
+				<h4>Method 3</h4>
+				<p>A continuation of Method 2. Perform the "one vs. rest" process of Method 2 and then continue the re-shuffling of seat seats even after all 100 seats have been allocated. This process has the effect of further reducing the disparities in representation until a certain stopping condition has been met.</p>
+			</div>
+
+			<div class="text">
+				<p>Different Senate Allocation Methods.</p>
+			</div>
+
+		<br />
+		<h2 class="heading" id="tests">Tests</h2>
+		<br />
+
+			<div class="text">
+				<p>Measures of success. Representation. 'Unrepresented Population'</p>
+
+				<h4>More On Elections</h4>
+				<p>What factors influence elections? How can these factors be used to create a model to predict election results? (Factors apply specifically to Senate elections)</p>
+				<ul>
+					<li>Power of the Incumbent</li>
+					<li>Senate Class/Election Year</li>
+					<li>Other Senator's Party (relative to state's partisan lean?)</li>
+					<li>PVI - State Partisan Lean</li>
+					<li>Population - Percent of Voters, Swing Voters?</li>
+					<li>State's House of Representatives Split</li>
+				</ul>
+				<br />
+				<h4>Dissecting an Example:</h4>
+				<h4><em>Virginia</em></h4>
+				<ul>
+					<li>Senators: 2 (<span class="blue">2 Democrats</span>)</li>
+					<li>House Seats: 11 (<span class="blue">7D</span> - <span class="red">4R</span>)</li>
+					<li>Population: 8,517,685</li>
+					<li>PVI: <span class="blue">D+1</span></li>
+					<li>2016 Pres. Result: <span class="blue">49.73 D</span> - <span class="red">44.41 R</span></li>
+					<li>2012 Pres. Result: <span class="blue">51.16 D - <span class="red">47.28 R</span></li>
+					<li>2018 Senate: <span class="blue">57.00 D</span> - <span class="red">41.01 R</span></li>
+					<li>2014 Senate: <span class="blue">49.1 D</span> - <span class="red">48.3 R</span></li>
+					<li>2010 Senate:</li>
+					<li>2008 Senate: <span class="blue">65.0 D</span> - <span class="red">33.7 R</span></li>
+				</ul>
+			</div>
+
+		<br />
+		<h2 class="heading" id="conclusions">Conclusions</h2>
+		<br />
+
+			<div class="text">
+				<p>Major takeaways. Constitutionality. Implications. Partisan Advantages.</p>
+			</div>
+
+		<br />
+		<h2 class="heading" id="about">About</h2>
+		<br />
+
+			<div class="text">
+				<p>Motivation. Previous Experience. Tie-Ins to PS 1. Other Projects. Portfolio</p>
+			</div>
+
+		<br />
+		<div id="footer">
+			Project by <a href="">James Weichert</a>. All Rights Reserved.
+		</div>
+	</div>
+
+	
+</body>
+</html>
