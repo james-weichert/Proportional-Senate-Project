@@ -330,12 +330,42 @@
 		<br />
 
 			<div class="text">
-				<p>Existing System - EC, House, Senate. Representation Disparaties. Implications. Why keep the Senate at all?</p>
+				<p>Throughout history, as the American public has come to experience firsthand the consequences of rigid and unbending institutions, Congressional gridlock, and undemocratic policies and practices, it has consequently looked to reform fundamental aspects of the American system of governance. From the ratification of the Seventeenth Amendment, which brought about the direct election of Senators, to the ratification of the Fifteenth, Nineteenth, and Twenty-Sixth Amendments, which all expanded suffrage, to the recent push to abolish the Electoral College through the <a href="https://www.nationalpopularvote.com/" target="_new">National Popular Vote Interstate Compact</a>, U.S. citizens and politicians alike have urged bold action in the face of institutional actions.</p>
+
+				
+				<p>Recently, the ire of the public has been directed at the Senate, one half of what was thought of by the Framers of the Constitution to be the primary and strongest branch of the federal government. Many modern criticisms of the Senate have stemmed from its propensity to promote the voices of less-populated states relative to those of more-populated states. The timeless example of this effect is that of California, the most populous state in the Union, and Wyoming, the least populous state. Wyoming, with 578,000 citizens, is 69 times less populous than California, with 39,866,000 citizens, yet both states each have two seats in the U.S. Senate. As a result, the average Wyomingite has, in theory, 69 times the political capital and influence than the average Californian–this disparity is a far cry from the populist ideals of Madison or Jefferson.</p>
+
+				<p>In the wake of the increased scrutiny on the Senate, in particular as its actions have taken the spotlight in recent years, calls to reform the Senate and its apportionment have intensified. As recently as January 2019, Eric Orts, a legal studies professor at the University of Pennsylvania, published an <a href="https://www.theatlantic.com/ideas/archive/2019/01/heres-how-fix-senate/579172/" target="_new">article</a> outlining exactly that: a rebalancing of Senate seat allocation to reduce disparities in vote power.</p>
+
+				<p>Granted, the dissolution of equal representation in the Senate is not something that the Framers condoned, let alone envisioned. Thus, part of Article V of the Constitution reads, “...that no State, without its Consent, shall be deprived of its equal Suffrage in the Senate,” . In essence, the Constitution established equal Senate apportionment as a bedrock principle of the American legislature, and ensured that this principle could not be tampered with, at least not without the substantial support of all states. However, the Supreme Court did hold in Reynolds v. Sims (1964) that the Equal Protection Clause of the Fourteenth Amendment required, “no less than substantially equal state legislative representation for all citizens...” noting that the right to direct representation was "a bedrock of our political system,”</p>
+
+				<p>While the constitutionality of eliminating equal representation of states in the Senate may still be unclear, it is nevertheless beneficial to imagine a constitutional system in which the Senate more closely represents the democratic nature of Congress’ lower chamber, if only as an exercise in the democratic allocation of seats in a legislature. To this end, I have attempted to design a set of algorithms that will redistribute the existing 100 Senate seats more equitably among the 50 states. In doing so, I abided by the following goals and rules:</p>
+
+				<ul>
+					<li>No state may be left without Senate representation. Thus, each state must have at least a single senator. This, in essence, leaves 50 seats to be moved around.</li>
+					<li>A byproduct of this type of reform to the Senate is a similar reform to the U.S. Electoral College. In this sense, a secondary goal of this project is to create an Electoral College where all states matter (at least more so than they do now), and thereby reduce the number of votes which are “wasted” in solidly red or blue states. Of course, it should be said that a more democratic election of the president can be brought about (without the pitfalls of being arguably unconstitutional) through a national popular vote.</li>
+					<li>Finally, the primary objective of this exercise is to decrease the disparities in the political power of citizens of each states. To wit, minimize the senator-to-consituent ratio across the states.</li>
+				</ul>
+
+				<p>With these goals in mind, I have endeavored to devise a couple of distinct methods to apportion Senate seats among the states. This article summarizes the data and methods I used to allocate Senate seats and comments on the effectiveness and practical considerations of doing so. Furthermore, as one of the first articles for the Berkeley Political Review to focus primarily on political data science and political modelling, this article will also serve as an introduction to and guidepost for the power of data-driven journalism. To this end, my hope is to combine text with interactive visualizations so as to allow you, the reader, to interact almost seamlessly with the contents of this project.</p>
+				
 			</div>
 
 		<br />
 		<h2 class="heading" id="eda">Exploratory Data Analysis</h2>
 		<br />
+
+			<p>I start this project where I start any other, by tinkering around with the data in a process called Exploratory Data Analysis. The aim here is to fully grasp the extent of the data and to start to develop an intuition for what the data say and how I can use the data to my advantage in creating a hypothetical Senate.</p>
+
+			<p>As a starting point, I will use only the following three values for each state:</p>	
+
+			<ul>
+				<li>Its population</li>
+				<li>The number of House seats it has</li>
+				<li>The number of Senate seats it currently has (always 2)</li>
+			</ul>
+
+			<p>From here, I calculated other important measures, one of which is the Population Per Senator metric, which is simply the total population of a state divided by the number of Senate seats it has. This metric is useful in examining the disparity in Senate representation, as Population Per Senator can be inferred to also measure the (theoretical) influence any one citizen can have on Senate policy. Naturally, states with a lower Population Per Senator (think Wyoming, Vermont, North Dakota) grant the citizens of those states more political capital, as a small electorate means that a citizen’s vote is more influential than that of a citizen in a more populous state. The distribution of Population Per Senator is visualized in the histogram below.</p>
 
 			<div class="code">
 				<p><span class="py">import</span> numpy <span class="py">as</span> np</p>
