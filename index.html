@@ -29,7 +29,7 @@
 		}
 
 		ul {
-			line-height: 170%;
+			line-height: 200%;
 			font-size: 1.1em;
 		}
 
@@ -274,6 +274,11 @@
 			color: inherit;
 		}
 
+		#content a {
+			color: #30398f;
+			text-decoration: underline;
+		}
+
 		.ind {
 			margin-left: 10%;
 		}
@@ -364,7 +369,9 @@
 		<br />
 
 			<div class="text">
-				<p>What I found - Why it's useful.</p>
+				<p>As part of a project for the <em>Berkeley Political Review</em>, I explored the political ramifications of making the U.S. Senate more proportionally-representative by allocating Senate seats by population (as is done with seats in the House of Representatives). Using a specially-created Python algorithm, I produced a hypothetical Senate map where seats were apportioned according a state's population in an effort to reduce the disparity in the population per Senate seat across all states. As expected, the result of allocating senators according to population–and not on an equal basis as described in the Constitution–is that political capital (the power of any one citizen to influence national policy) is more or less standardized across the country. However, the election model developed for the purposes of this project shows that, despite the change in seat allocation, the partisan makeup of the Senate does not change dramatically––Republicans still command a slight majority in the upper chamber of Congress.</p>
+
+				<p>While the methods used here are far from perfect, the algorithm used for proportional seat allocation represents a step in the right direction towards the democratization of the Senate. In particular, a model that allows for more splitting of Senate seats within a state between the two parties shows that the minority party in some states (e.g. California, Texas, New York, Georgia) might be able to attain some Senate representation under a proportional Senate map.</p>
 			</div>
 
 		<br />
@@ -396,7 +403,7 @@
 		<br />
 
 			<div class="text">
-				<p>INTRODUCTION</p>
+				<p>The basis for this project is a simple data set I scrapped together (from Wikipedia) that lists the 2018 populations for each state. I then added the number of House seats for each state to allow for a comparison of the political equity across states. This data served as a starting point and allowed me to conduct exploratory data analysis with relation to proportional representation.</p>
 			</div>
 
 			<div class="code">
@@ -465,7 +472,7 @@
 
 			<div class="text">
 			
-			<p>As a starting point, I used only the following three data points for each state:</p>
+			<p>As a starting point, I used only the following three data points for each state (as seen in the above table):</p>
 			<ul>
 				<li>Its population</li>
 				<li>The number of House seats it has</li>
@@ -503,15 +510,21 @@
 				<img src="Assets/SenateChange.png"/>
 				<br />
 
-				<p>The allocation method described above led to a 40% decrease in the variability of the <em>Population per Senator</em> metric across all fifty states–this had the effect of ‘balancing’ Senate seats more even across states according to their populations. The effect of the new proportionally-allocated Senate is perhaps best summarized by the graph below. It shows a far more equitable distribution of Senate seats compared to a similar graph of the current Senate (see “Exploratory Data Analysis” section).</p>
+				<p>The allocation method described above led to a 40% decrease in the variability of the <em>Population per Senator</em> metric across all fifty states–this had the effect of ‘balancing’ Senate seats more even across states according to their populations. The effect of the new proportionally-allocated Senate is perhaps best summarized by the graph below. It shows a far more equitable distribution of Senate seats compared to a similar graph of the current Senate (see <a href="#eda">Exploratory Data Analysis</a> section).</p>
 
-				<p>IMAGE</p>
+				<img src="Assets/PPS-Hist-NewSenate.png"/>
+				<br />
 
 
 			</div>
 
 			<div class="text">
 				
+				<br />
+				<h3>Seat Allocation Algorithm</h3>
+
+				<p>The algorithm for allocating Senate seats as described above takes in the Senate data set described earlier, calculates the <span class="code">std_ratio</span>, the desired population per senator ratio on the national level, and then allocates each state a baseline of one Senate seat. Finally, the algorithm loops over all states, adding a Senate seat to a state if its population per senator ratio exceeds the <span class="code">std_ratio</span>, until there are no more Senate seats to allocate.</p>
+
 				<br />
 
 				<div class="code">
@@ -577,23 +590,24 @@
 
 				<p>In mathematical terms, the number of Senate seats for any one state can be calculated as:</p>
 
-				<img src="Assets/Equation.png" style="width: 50%;" />
+				<img src="Assets/Equation.png" style="width: 50%; margin-left: 25%;" />
 
 				<p><em>Where:</em></p>
 				<ul>
-					<li><em>S</em> – Number of Senate seats for state A</li>
-					<li><em>p<sub>s</sub></em> – Population of state A</li>
-					<li><em>p<sub>n</sub></em> – National Population (326,464,979)</li>
+					<li><span class="code">S</span> – Number of Senate seats for state A</li>
+					<li><span class="code">p<sub>s</sub></span> – Population of state A</li>
+					<li><span class="code">p<sub>n</sub></span> – National Population (326,464,979)</li>
 				</ul>
 
-				<p><em>With one additional Senate seat each allocated to:</em></p>
+				<p><em>With one additional Senate seat each allocated to: <sup>1</sup></em></p>
 				<ul>
 					<li>New York</li>
 					<li>Pennsylvania</li>
 					<li>Illinois</li>
 					<li>Missouri</li>
 				</ul>
-				<p>FOOTNOTE</p>
+				<br />
+				<p style="font-size: 0.8em;"><sup>1</sup> As it happens, this method leaves four ‘leftover’ Senate seats by the end of the process, because all states’ remaining (unrepresented) populations are below the desired ratio. To complete the allocation of Senate seats, the final four seats are given to the states with the highest remaining (unrepresented) populations.</p>
 
 			</div>
 
@@ -616,16 +630,14 @@
 				<br />
 				<h3>Imputing the Partisan Composition of the Senate</h3>
 
-				<p>As before, I started with a few ground rules and guidelines:</p>
+				<p>As before, I started with a few guidelines:</p>
 
 				<ul>
-					<li>This is going to be a very rudimentary election forecaster. This project is mainly about how to apportion Senate seats, so my focus is not on creating a very advanced election model. (If you're looking for a cutting edge election model, check out FiveThirtyEight’s Election Forecaster or <em>The New York Times’</em> Upshot Section)</li>
+					<li>This is going to be a very rudimentary election forecaster. This project is mainly about how to apportion Senate seats, so my focus is not on creating a very advanced election model. (If you're looking for a cutting edge election model, check out <a href="https://projects.fivethirtyeight.com/2018-midterm-election-forecast/house/" target="_blank">FiveThirtyEight’s Election Forecaster</a> or <em>The New York Times’</em> <a href="https://www.nytimes.com/section/upshot" target="_blank">Upshot Section</a>)</li>
 					<li>I want my model to do well in simulating the outcomes of elections in the current Senate (which we can compare to the actual election results) so that I can apply it to other Senate maps with reasonable confidence in its predictive power.</li>
-					<li>I also want this model to work with as little input data as possible. Consequently, I am just going to use the state’s Cook Political Report <em>Partisan Voting Index</em> (see more here) and some nationwide election parameters in order to generate an outcome.</li>
+					<li>I also want this model to work with as little input data as possible. Consequently, I am just going to use the state’s Cook Political Report <em>Partisan Voting Index</em> (see more <a href="https://cookpolitical.com/pvi-0" target="_blank">here</a>) and some nationwide election parameters in order to generate an outcome.</li>
 					<li>This model will assume that voters will vote for parties–the personal or political qualities of individual candidates won’t matter.</li>
 				</ul>
-
-				<p>These guidelines lead to the creation of the following mathematical model for simulating a Senate election:</p>
 
 				<br />
 
@@ -636,7 +648,7 @@
 				<ul>
 					<li>For each state, elections are held one after another until all available senators have been elected.</li>
 					<li>The number of voters in an election is defined as the population of the state multiplied by the percentage of voting age citizens (77%) then multiplied again by the turnout of the election (always 56%).</li>
-					<li><em>1 - s</em> % of the voters are considered ‘base’ voters for either party, where s is the percent of swing voters in the election (10% of the total number of voters)</li>
+					<li><span class="code">1 - s%</span> of the voters are considered ‘base’ voters for either party, where s is the percent of swing voters in the election (10% of the total number of voters)</li>
 					<li>The number of base voters is multiplied by the Democratic lean of the state to determine the number of Democratic base voters. The same is done for Republican base voters.</li>
 					<li>The swing vote is decided by multiplying the number of swing voters (10% of the total number of voters) multiplied by the percentage margin of the previous Senate election.</li>
 					<li>The the Democratic swing votes are added to the Democratic base votes (and vice versa). The party with the greater number of votes in the election wins that Senate seat.</li>
@@ -667,7 +679,7 @@
 
 				<h3>A More Diverse Senate Map</h3>
 
-				<p>ALT MAP</p>
+				<img src="Assets/SenateAlt.png"/>
 
 				<p>This more colorful map is a more complete indication of how a proportionally-representative Senate might encourage diverse bipartisan election results. In particular, this map makes clear that more moderate states might tend to split their Senate seats when given more than two senators to elect. Florida, Pennsylvania, Arizona, and Virginia offer examples of this effect. It should again be noted that this simulation strays from reality on some states more so than others. Massachusetts, Washington, and Tennessee all have an even number of Democratic and Republican senators under this simulation, although the current political climate in each of those states might suggest those results are next to impossible.</p>
 
@@ -712,19 +724,21 @@
 			<div class="text">
 				<p>Despite the fact that the models built as part of this project seem to simply support the current Senate status quo—that the Senate will be split almost evenly among the two mainline parties, with a narrow edge to Senate Republicans—, the outcomes of this project illustrate an important point about the politics of making the Senate more democratic. Namely, a proportional Senate is not nearly as disruptive to the current state of American politics than many might think. These results may perhaps prove persuasive in arguing that the American political establishment should support a big structural change in such a quintessential American institution. After all, these maps show that the reallocation of Senate seats does little to damage the strong support of for Republicans in the Senate. Indeed in the long run, democracy may be both the  politically- as well as the theoretically-appropriate course of action.</p>
 
-				<p>Once again, thank you for taking the time to read this article. I hope you enjoyed both the content of this project as well as our new focus on providing interactive data visualizations to accompany the great journalism and political critique we do here at the Berkeley Political Review. If you have any in-depth questions about this project, you can email me at jweichert@berkeley.edu.</p>
+				<p style="text-align: center;">* * *</p>
+
+				<p>Thank you for taking the time to read this article. If you have any questions about this project or about my work in general, you can email me at <span class="code">james (dot) p (dot) weichert (at) gmail (dot) com</span>.</p>
 
 				<br />
 				<h3>Notes and References</h3>
 
-				<p>The code and more visualizations for this project can be found here [INSERT LINK HERE]</p>
+				<p>The code and more visualizations for this project can be found <a href="https://mybinder.org/v2/gh/james-weichert/Proportional-Senate-Project/master" target="_blank">here</a>.</p>
 
 				<p>While researching for this project, I came across numerous other projects tackling issues of election simulation, legislature apportionment, and political data science. Below are some that I think are worth visiting:</p>
 
 				<ul>
 					<li><a href="https://ncase.me/ballot/" target="_new">To Build a Better Ballot</a> - Nicky Case</li>
 					<li>FiveThirtyEight's <a href="https://projects.fivethirtyeight.com/2018-midterm-election-forecast/senate/" target="_new">2018 Senate Elections Forecaster</a></li>
-					<li><em>The New York Times'</em> Senate Model <a href="https://www.nytimes.com/interactive/2014/upshot/elections-2014-make-your-own-senate-forecast.html" target="_new">LEO</li>
+					<li><em>The New York Times'</em> <a href="https://www.nytimes.com/interactive/2014/upshot/elections-2014-make-your-own-senate-forecast.html" target="_new">Senate Model LEO</a></li>
 				</ul>
 
 			</div>
@@ -734,12 +748,14 @@
 		<br />
 
 			<div class="text">
-				<p>Motivation. Previous Experience. Tie-Ins to PS 1. Other Projects. Portfolio</p>
+				<p>James Weichert is a freshman at the University of California, Berkeley studying Computer Science and Data Science with a minor in Public Policy. A web developer and data analyst for the <em>Berkeley Political Review</em>, James is interested in the intersection of public policy, governance, data, design, and software.</p>
+
+				<p>The inspiration for this project came in summer 2019 amid increasing calls by political theorists and politicians alike<sup><a href="https://twitter.com/petebuttigieg/status/1108386576126656513?lang=en" target="_blank">*</a></sup> to abolish the Electoral College or to reform seat allocation in the Senate. As an exercise in how to possibly reform the Electoral College, I undertook the task of trying to allocate Senate seats according to each state's population. Since joining the <em>Berkeley Political Review</em>, I have continued to work on this project by shaping it into a two-part article series for the Review highlighting the role data science can play in political analysis.</p>
 			</div>
 
 		<br />
 		<div id="footer">
-			Project by <a href="">James Weichert</a>. All Rights Reserved.
+			Project by <a href="http://james-weichert.github.io" target="_blank">James Weichert</a>. Copyright &copy; 2020. All Rights Reserved.
 		</div>
 	</div>
 
