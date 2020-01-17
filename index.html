@@ -394,8 +394,7 @@
 					<li>Secondly, the primary objective of this exercise is to decrease the disparities in the political power of citizens of each state by minimizing the senator-to-consituent ratio across the states.</li>
 				</ul>
 
-				<p>This article summarizes the data and methods I used to allocate Senate seats and comments on the effectiveness and practical considerations of doing so. Furthermore, as one of the first articles for the Berkeley Political Review to focus primarily on political data science and political modeling, this article will also serve as an introduction to and guidepost for the power of data-driven journalism from the Berkeley Political Review. 
-</p>
+				<p>This article summarizes the data and methods I used to allocate Senate seats and comments on the effectiveness and practical considerations of doing so.  </p>
 			</div>
 
 		<br />
@@ -503,14 +502,14 @@
 
 				<p>This method has the advantage of leveling the representative capacity of each Senate seat on the national level, leading to less variation of <em>Population per Senator</em> on the state level. That is to say that this method allows us to say “one Senate seat represents roughly 3.3 million Americans,” regardless of which state we’re referring to.</p>
 
-				<p>The result of this proportional allocation algorithm are pictured in the state maps below. The first shows the number of Senate seats per state under the proportional allocation system while the second shows the change in Senate seats from the current Senate to the hypothetical proportionally-allocated Senate.</p>
+				<p>The results of this proportional allocation algorithm are pictured in the state maps below. The first shows the number of Senate seats per state under the proportional allocation system while the second shows the change in Senate seats from the current Senate to the hypothetical proportionally-allocated Senate.</p>
 
 				<img src="Assets/ProportionalSenate.png"/>
 				<br />
 				<img src="Assets/SenateChange.png"/>
 				<br />
 
-				<p>The allocation method described above led to a 40% decrease in the variability of the <em>Population per Senator</em> metric across all fifty states–this had the effect of ‘balancing’ Senate seats more even across states according to their populations. The effect of the new proportionally-allocated Senate is perhaps best summarized by the graph below. It shows a far more equitable distribution of Senate seats compared to a similar graph of the current Senate (see <a href="#eda">Exploratory Data Analysis</a> section).</p>
+				<p>The allocation method described above led to a 40% decrease in the variability of the <em>Population per Senator</em> metric across all fifty states–this had the effect of ‘balancing’ Senate seats more evenly across states according to their populations. The effect of the new proportionally-allocated Senate is perhaps best summarized by the graph below. It shows a far more equitable distribution of Senate seats compared to a similar graph of the current Senate (see <a href="#eda">Exploratory Data Analysis</a> section).</p>
 
 				<img src="Assets/PPS-Hist-NewSenate.png"/>
 				<br />
@@ -648,9 +647,9 @@
 				<ul>
 					<li>For each state, elections are held one after another until all available senators have been elected.</li>
 					<li>The number of voters in an election is defined as the population of the state multiplied by the percentage of voting age citizens (77%) then multiplied again by the turnout of the election (always 56%).</li>
-					<li><span class="code">1 - s%</span> of the voters are considered ‘base’ voters for either party, where s is the percent of swing voters in the election (10% of the total number of voters)</li>
+					<li><span class="code">100 - s%</span> of the voters are considered ‘base’ voters for either party, where s is the percent of swing voters in the election (10% of the total number of voters)</li>
 					<li>The number of base voters is multiplied by the Democratic lean of the state to determine the number of Democratic base voters. The same is done for Republican base voters.</li>
-					<li>The swing vote is decided by multiplying the number of swing voters (10% of the total number of voters) multiplied by the percentage margin of the previous Senate election.</li>
+					<li>The swing vote is decided by multiplying the number of swing voters (10% of the total number of voters) multiplied by the percentage margin of the previous Senate election. Thus, if the party A won the last Senate election, more swing voters in the current election will vote for party B, because party A voters already have Senate representation.</li>
 					<li>The the Democratic swing votes are added to the Democratic base votes (and vice versa). The party with the greater number of votes in the election wins that Senate seat.</li>
 				</ul>
 
@@ -659,7 +658,7 @@
 				<br />
 				<h3>The Outcomes</h3>
 
-				<p>With a very rudimentary election forecaster assembled, I was ready to apply my algorithm the various Senate maps, both real-world and hypothetical. As a baseline, I simulated the results of Senate elections given the current equal representation system. My hope was that my model would generate a <em>somewhat</em> accurate map of the Senate’s partisan composition (as pictured below).</p>
+				<p>With a very rudimentary election forecaster assembled, I was ready to apply my algorithm the various Senate maps, both real-world and hypothetical. As a baseline, I simulated the results of Senate elections given the current equal representation system. My hope was that my model would generate a <em>somewhat</em> accurate map of the Senate’s partisan composition (as pictured below, where blue states have two Democratic senators, yellow states have one senator from each party, and red states have two Republican senators).</p>
 
 				<img src="Assets/RealSenate.png">
 
